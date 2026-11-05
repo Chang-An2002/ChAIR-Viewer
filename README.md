@@ -58,6 +58,13 @@ Rscript plotData.R
 
 #### 4. The ChAIR-viewer version of shiny is will be finished soon. 
 
+
+## K562 example
+
+![K562 single-cell and ensemble ChAIR tracks](img/K562_Viewer_example.png)
+
+A browser-based visualization of K562 ChAIR single-cell tracks, ensemble ChAIR data and bulk-cell RNA-seq, ATAC-seq and ChIATAC data. The genes in green are oriented in the 5′-3′ direction, while the genes in blue are in the 3′-5′ direction. The top 800 cells of single-cell data with the most chromatin contacts and also with all three modalities available within the displayed region are visualized. The cells were sorted in order based on the hierarchical clustering of the ChAIR-PET data. The color assigned to each cluster is for distinguishing nearby clusters.
+
 # CONTACT
 黄加祥 (Jiaxiang Huang, 12207142@zju.edu.cn)<br/>
 黄星宇 (Xingyu Huang, xingyu.huang@zju.edu.cn/huang182@live.cn)<br/>
