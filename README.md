@@ -5,11 +5,11 @@ ChAIR-Viewer displays aligned single-cell RNA, ATAC and PET tracks, gene annotat
 ## Setup
 
 ```bash
-git clone -b protocol-revision-20261105 https://github.com/Chang-An2002/ChAIR-Viewer.git
+git clone https://github.com/Chang-An2002/ChAIR-Viewer.git
 cd ChAIR-Viewer
 ```
 
-Use the `chair-r` R environment prepared in the [ChAIR-PIPE installation instructions](https://github.com/Chang-An2002/ChAIR-PIPE/tree/protocol-revision-20261105#installation). The Viewer uses RColorBrewer, pheatmap, plotrix, dplyr and GenomicRanges.
+Use the `chair-r` R environment prepared in the [ChAIR-PIPE installation instructions](https://github.com/Chang-An2002/ChAIR-PIPE/tree/main#installation). The Viewer uses RColorBrewer, pheatmap, plotrix, dplyr and GenomicRanges.
 
 ## Option 1: Visualization using an input manifest
 
