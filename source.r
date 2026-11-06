@@ -44,15 +44,15 @@ run <- function(region,file,cut_region1="",cut_region2="",cut= F,gene="",directi
   if(output=="" && outfmt=="pdf"){
   # output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,"clean",clean,"showPETnum",showPETnum,".pdf",sep="-")
     if(cut){
-      output=paste(chrom,start,end,"cut",cut,"direction",direction,"type",type,".pdf",sep="-")
+      output=paste(chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
     }else{
-      output=paste(chrom,start,end,"gene",gene,"direction",direction,"type",type,".pdf",sep="-")
+      output=paste(chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
     }
   } else if(output=="" && outfmt=="png"){
     if(cut){
-      output=paste(chrom,start,end,"cut",cut,"direction",direction,"type",type,".png",sep="-")
+      output=paste(chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")
     }else{
-      output=paste(chrom,start,end,"gene",gene,"direction",direction,"type",type,".png",sep="-")
+      output=paste(chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")     
     }
 
   }
@@ -117,7 +117,7 @@ run <- function(region,file,cut_region1="",cut_region2="",cut= F,gene="",directi
                   bb[["scATACPETflt"]] <- list_tmp[[2]]
 
                   write.table(orderPET_dataframe$orderBarcode,paste0(output,".PET_barcodes_",pic,".tsv"),sep="\t",quote=F)
-                  write.table(bb[["scATACPETflt"]],paste0(output,".PET_",pic,".tsv"),sep="\t",quote=F)
+                  write.table(bb[["scATACPETflt"]],paste0(output,".PET_",pic,".tsv"),sep="\t",quote=F)      
             }else{
                 orderPET_dataframe = clusterPET(bb[["scATACPETflt"]], start, end,nbin=50,nclass=20,direction=F)
             }        
@@ -1120,7 +1120,6 @@ plotData3 = function(mylist,color_class,orderPETBarcode,orderATACBarcode,orderRN
   }
   
   geneflt = mylist[["geneflt"]]
-  labelled_genes <- character()
   if (nrow(transcriptinfo) != 0){
     for (row in (1:nrow(transcriptinfo))) {
       ID = transcriptinfo$names[row]
@@ -1134,12 +1133,6 @@ plotData3 = function(mylist,color_class,orderPETBarcode,orderATACBarcode,orderRN
       }
       rect(subgeneinfo$start, transcriptinfo$plotrow[row] + 0, subgeneinfo$end, transcriptinfo$plotrow[row] + 0 + 0.5 ,col=color,border=NA)
       segments(transcriptinfo$starts[row], transcriptinfo$plotrow[row] + 0.25 , transcriptinfo$stops[row], transcriptinfo$plotrow[row] + 0.25 ,col=color)
-      gene_label <- as.character(subgeneinfo$gene[1L])
-      if (!is.na(gene_label) && !gene_label %in% labelled_genes) {
-        label_x <- (max(start, transcriptinfo$starts[row]) + min(end, transcriptinfo$stops[row])) / 2
-        text(label_x, transcriptinfo$plotrow[row] + 0.65, labels=gene_label, cex=0.9, col=color)
-        labelled_genes <- c(labelled_genes, gene_label)
-      }
     }
   }  
   par(cex=0.5, mai=c(0,0.2,0.1,0.1))
