@@ -11,7 +11,9 @@ cd ChAIR-Viewer
 
 Use the `chair-r` R environment prepared in the [ChAIR-PIPE installation instructions](https://github.com/Chang-An2002/ChAIR-PIPE/tree/protocol-revision-20261105#installation). The Viewer uses RColorBrewer, pheatmap, plotrix, dplyr and GenomicRanges.
 
-## Prepare inputs
+## Option 1: Visualization using an input manifest
+
+### Prepare inputs
 
 For a completed ChAIR-PIPE analysis, run its `codes/prepare_viewer_inputs.sh` script. It creates a directory containing the following files and an `inputs.tsv` manifest:
 
@@ -27,7 +29,7 @@ For a completed ChAIR-PIPE analysis, run its `codes/prepare_viewer_inputs.sh` sc
 
 `inputs.example.tsv` shows the manifest structure. The first line is `track<TAB>path`; relative paths are resolved from the manifest directory. Plain and gzip-compressed tables are supported. RNA, ATAC and PET use matching cell barcodes and the same genome assembly. Ensemble tracks describe the sample-level aggregate signal.
 
-## Load the manifest
+### Load the manifest
 
 ```bash
 conda run --no-capture-output -n chair-r Rscript readInfo.R \
@@ -36,7 +38,7 @@ conda run --no-capture-output -n chair-r Rscript readInfo.R \
 
 The command saves the objects used by `loadData()` and `run()` in one RData file. The manifest supplies the sample file paths directly.
 
-## Plot the K562 example region
+### Plot the K562 example region
 
 ```bash
 conda run --no-capture-output -n chair-r Rscript plotData.R \
@@ -50,15 +52,18 @@ The last three arguments are the displayed cell count, minimum ensemble-loop con
 
 Advanced plotting options are available through `loadData()` and `run()` in `source.r`.
 
-## K562 example
+### K562 example
 
 ![K562 single-cell and ensemble ChAIR tracks](img/K562_Viewer_example.png)
 
 A browser-based visualization of K562 ChAIR single-cell tracks and ensemble ChAIR data.
 The genes in green are oriented in the 5′-3′ direction, while the genes in blue are in the 3′-5′ direction. The top 800 cells of single-cell data with the most chromatin contacts and also with all three modalities available within the displayed region are visualized. The cells were sorted in order based on the hierarchical clustering of the ChAIR-PET data. The color assigned to each cluster is for distinguishing nearby clusters.
 
-<details>
-<summary>Legacy filename-based input preparation</summary>
+---
+
+The workflows above and below are two alternative ways to prepare inputs and visualize data. Choose either workflow according to your input files.
+
+## Option 2: Visualization using filename conventions
 
 The three-argument reader remains available for existing datasets:
 
@@ -106,8 +111,6 @@ mouseBrain.clean.dup.GEX.mouseBrain.fragments.unsorted.tsv|scRNA (contain mapped
 ```
 Rscript plotData.R alldata/mouseBrain.mouseBrain.chr19.data.RData chr19:5500000-6500000 mouseBrain.Viewer.pdf
 ```
-
-</details>
 
 ## Contact
 
