@@ -44,15 +44,15 @@ run <- function(region,file,cut_region1="",cut_region2="",cut= F,gene="",directi
   if(output=="" && outfmt=="pdf"){
   # output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,"clean",clean,"showPETnum",showPETnum,".pdf",sep="-")
     if(cut){
-      output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
+      output=paste(chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
     }else{
-      output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
+      output=paste(chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"clean",clean,"sample_num",sample_num,".pdf",sep="-")
     }
   } else if(output=="" && outfmt=="png"){
     if(cut){
-      output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")
+      output=paste(chrom,start,end,file,"cut",cut,"cut_region",cut_region1[1],"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")
     }else{
-      output=paste("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/",chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")     
+      output=paste(chrom,start,end,file,"gene",gene,"direction",direction,"type",type,"PETcount",PETcount,"VCscore",VCscore,"sample_num",sample_num,".png",sep="-")     
     }
 
   }
@@ -116,8 +116,8 @@ run <- function(region,file,cut_region1="",cut_region2="",cut= F,gene="",directi
                   orderPET_dataframe <- list_tmp[[1]]
                   bb[["scATACPETflt"]] <- list_tmp[[2]]
 
-                  write.table(orderPET_dataframe$orderBarcode,paste0("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/Dcc/excit_scATACPETflt_barcode_",pic,".table"),sep="\t",quote=F)
-                  write.table(bb[["scATACPETflt"]],paste0("/data/home/ruanlab/huangjiaxiang/scChIATAC_new/001.plot/Dcc/excit_scATACPETflt_",pic,".table"),sep="\t",quote=F)      
+                  write.table(orderPET_dataframe$orderBarcode,paste0(output,".PET_barcodes_",pic,".tsv"),sep="\t",quote=F)
+                  write.table(bb[["scATACPETflt"]],paste0(output,".PET_",pic,".tsv"),sep="\t",quote=F)      
             }else{
                 orderPET_dataframe = clusterPET(bb[["scATACPETflt"]], start, end,nbin=50,nclass=20,direction=F)
             }        
@@ -150,7 +150,7 @@ run <- function(region,file,cut_region1="",cut_region2="",cut= F,gene="",directi
   }
 
   if(outfmt=="pdf"){
-    write.table(as.data.frame(barcode_vec),file=gsub("pdf","csv",output[1]),quote=F,col.names=F,row.names=F,sep=",")
+    write.table(as.data.frame(barcode_vec),file=sub("\\.pdf$",".csv",output[1],ignore.case=TRUE),quote=F,col.names=F,row.names=F,sep=",")
   } 
 
   dev.off()
@@ -203,7 +203,7 @@ filterData = function(genelist,scATACfragmentlist,scATACpeaklist,scATACARCCOVlis
 
   scATACPET = scATACPETlist[[chrom]]
   scATACPETflt = scATACPET[scATACPET$chrom1==chrom & scATACPET$end1 > start & scATACPET$start1 < end & scATACPET$chrom2==chrom & scATACPET$end2 > start & scATACPET$start2 < end, ]
-  scATACPETflt = scATACPETflt[scATACPET$end2-scATACPET$start1 >= dis, ]
+  scATACPETflt = scATACPETflt[scATACPETflt$end2-scATACPETflt$start1 >= dis, ]
   
   scRNAfragment = scRNAfragmentlist[[chrom]]
   scRNAfragmentflt = scRNAfragment[scRNAfragment$chrom==chrom & scRNAfragment$end > start & scRNAfragment$start < end, ]
@@ -1107,7 +1107,7 @@ plotData3 = function(mylist,color_class,orderPETBarcode,orderATACBarcode,orderRN
   par(fig=c(x_pic1,x_pic2,parlist[4],parlist[5]), new=TRUE)
   transcriptinfo = mylist[["transcriptinfo"]]
 
-  if(is.null(mylist[["chromstatflt"]])){
+  if(is.null(mylist[["chromstatflt"]]) || nrow(mylist[["chromstatflt"]]) == 0L){
     plot(c(1,1),type='n',xlim=c(start,end), ylim=c(1,max(transcriptinfo$plotrow)+1),xaxs="i")
   }else{
     plot(c(1,1),type='n',xlim=c(start,end), ylim=c(1,max(transcriptinfo$plotrow)+2),xaxs="i")

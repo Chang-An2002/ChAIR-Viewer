@@ -1,4 +1,10 @@
 args=commandArgs(T)
+if (length(args) == 3L && args[1] == "--manifest") {
+  script <- sub("^--file=", "", commandArgs()[grepl("^--file=", commandArgs())])
+  source(file.path(dirname(normalizePath(script)), "read_manifest.R"))
+  readViewerManifest(args[2], args[3])
+  quit(save = "no", status = 0)
+}
 
 readfile = function(infile) {
   if (length(grep(".gz$",infile)) || length(grep(".GZ$",infile)) || length(grep(".gzip$",infile)) || length(grep(".GZIP$",infile))) {
