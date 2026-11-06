@@ -1,9 +1,8 @@
-track	path
-genes	genes.bed
-rna	RNA.intervals.tsv.gz
-atac	ATAC.intervals.tsv.gz
-peaks	ATAC.peaks.bed
-pet	PET.bedpe.gz
-loops	PET.loops.tsv.gz
-rna_rpkm	RNA.RPKM.bedgraph.gz
-atac_rpkm	ATAC.RPKM.bedgraph.gz
+track	path description
+genes	genes.bed gene_annotation
+rna	RNA.intervals.tsv.gz single-cell_RNA
+atac	ATAC.intervals.tsv.gz single-cell_ATAC
+pet	PET.bedpe.gz single-cell_PET
+rna_rpkm	RNA.RPKM.bedgraph.gz ensemble_RNA
+atac_rpkm	ATAC.RPKM.bedgraph.gz ensemble_ATAC_peak
+loops	PET.loops.tsv.gz ensemble_loop
