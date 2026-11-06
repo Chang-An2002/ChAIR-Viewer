@@ -1,5 +1,5 @@
-track	path description
-genes	genes.bed gene_annotation
+track	path  description
+  genes	genes.bed  gene_annotation
 rna	RNA.intervals.tsv.gz single-cell_RNA
 atac	ATAC.intervals.tsv.gz single-cell_ATAC
 pet	PET.bedpe.gz single-cell_PET
