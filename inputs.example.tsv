@@ -2,7 +2,6 @@ track	path	description
 genes	genes.bed	gene_annotation
 rna	RNA.intervals.tsv.gz	single-cell_RNA
 atac	ATAC.intervals.tsv.gz	single-cell_ATAC
-peaks	ATAC.peaks.bed	ATAC_peak_input
 pet	PET.bedpe.gz	single-cell_PET
 rna_rpkm	RNA.RPKM.bedgraph.gz	ensemble_RNA
 atac_rpkm	ATAC.RPKM.bedgraph.gz	ensemble_ATAC_peak
