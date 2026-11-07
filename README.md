@@ -27,7 +27,7 @@ For a completed ChAIR-PIPE analysis, run its `codes/prepare_viewer_inputs.sh` sc
 | `loops` | Ten columns: chrom1, start1, end1, chrom2, start2, end2, count, anchor1 coverage, anchor2 coverage, VC_sqrt score |
 | `chromstat` (optional) | Nine-column chromatin-state BED including itemRgb |
 
-`inputs.example.tsv` shows the manifest structure. Separate columns with TAB characters; `track` and `path` are required, and `description` is optional. Relative paths are resolved from the manifest directory. Plain and gzip-compressed tables are supported. RNA, ATAC and PET use matching cell barcodes and the same genome assembly. Ensemble tracks describe the sample-level aggregate signal.
+`inputs.example.tsv` shows the manifest structure. Relative paths are resolved from the manifest directory. Plain and gzip-compressed tables are supported. RNA, ATAC and PET use matching cell barcodes and the same genome assembly. Ensemble tracks describe the sample-level aggregate signal.
 
 ### Load the manifest
 
