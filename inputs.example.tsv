@@ -1,4 +1,4 @@
-track	path	description
+track	format	description
 genes	genes.bed	gene_annotation
 rna	RNA.intervals.tsv.gz	single-cell_RNA
 atac	ATAC.intervals.tsv.gz	single-cell_ATAC
